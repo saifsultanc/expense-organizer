@@ -9,6 +9,22 @@
 </head>
 
 <body>
+  <header>
+    <h1>
+      Expense Organizer
+    </h1>
+    <form class="root-path-wrap js-root-path__form">
+      <h2><label for="root-path">Folder Path</label></h2>
+      <input type="text" name="root-path" id="root-path" class="js-root-path__input" value="/" />
+      <button aria-label="Load path" class="dbx-btn" type="submit">
+        &rarr;
+      </button>
+    </form>
+  </header>
+  <main>
+    <button type="button" class="dbx-btn js-organize-btn">Organize</button>
+    <ul class="dbx-list js-file-list">Loading...</ul>
+  </main>
   <script src="index.pack.js"></script>
 </body>
 
