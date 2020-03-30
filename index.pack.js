@@ -32,3 +32,30 @@ organizeBtn.addEventListener('click', async e => {
   e.target.innerHTML = originalMsg;
   reset();
 });
+
+const moveFiles = async () => {
+  const entries = state.files
+    .filter(file => file['.tag'] === 'file')
+    .map(file => {
+      const date = new Date(file.client_modified);
+      return {
+        from_path: file.path_lower,
+        to_path: `${state.rootPath}/${date.getFullYear()}/${date.getUTCMonth() + 1}/${file.name}`
+      }
+    });
+  let res = await dbx.filesMoveBatchV2({ entries });
+  const { async_job_id } = res;
+  if (async_job_id) {
+    do {
+      rest = await dbx.filesMoveBatchCheckV2({ async_job_id });
+      console.log(res);
+    } while (res['.tag'] === 'in_progress')
+  }
+}
+
+const reset = () => {
+  state.files = [];
+  init();
+}
+
+init();
