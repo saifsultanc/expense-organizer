@@ -23,3 +23,12 @@ rootPathForm.addEventListener('submit', e => {
   reset();
 });
 
+organizeBtn.addEventListener('click', async e => {
+  const originalMsg = e.target.innerHTML;
+  e.target.disabled = true;
+  e.target.innerHTML = "Working...";
+  await moveFiles();
+  e.target.disable = false;
+  e.target.innerHTML = originalMsg;
+  reset();
+});
