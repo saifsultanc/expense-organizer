@@ -43,6 +43,32 @@ const updateFiles = files => {
   renderFiles();
 }
 
+const renderFiles = () => {
+  fileListElem.innerHTML = state.files.sort((a, b) => {
+    // sort alphabetically, folders first
+    if ((a['.tag'] === 'folder' || b['.tag'] === 'folder')
+      && !(a['.tag'] === b['.tag'])) {
+      return a['.tag'] === 'folder' ? -1 : 1;
+    } else {
+      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+    }
+  }).map(file => {
+    const type = file['.tag'];
+    let thumbnail;
+    if (type === 'file') {
+      thumbnail = fileIcon;
+    } else {
+      thumbnail = folderIcon;
+    }
+    return `
+      <li class="dbx-list-item ${type}">
+        <img class="dbx-thumb" src="${thumbnail}">
+        ${file.name}
+      </li>
+    `;
+  }).join('');
+}
+
 const moveFiles = async () => {
   const entries = state.files
     .filter(file => file['.tag'] === 'file')
