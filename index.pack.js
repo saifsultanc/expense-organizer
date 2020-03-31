@@ -38,6 +38,11 @@ const state = {
   rootPath: ''
 }
 
+const updateFiles = files => {
+  state.files = [...state.files, ...files];
+  renderFiles();
+}
+
 const moveFiles = async () => {
   const entries = state.files
     .filter(file => file['.tag'] === 'file')
