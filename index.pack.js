@@ -33,6 +33,11 @@ organizeBtn.addEventListener('click', async e => {
   reset();
 });
 
+const state = {
+  files: [],
+  rootPath: ''
+}
+
 const moveFiles = async () => {
   const entries = state.files
     .filter(file => file['.tag'] === 'file')
